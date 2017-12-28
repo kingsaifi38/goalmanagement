@@ -11,6 +11,7 @@ const port = 9000
 loginAuth = require('./src/goal-management/ServerAPIs/Authentication');
 userDetailes = require('./src/goal-management/ServerAPIs/userDetails');
 goalInfo = require('./src/goal-management/ServerAPIs/goal');
+goalComments = require('./src/goal-management/ServerAPIs/GoalComments');
 
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
@@ -29,10 +30,12 @@ app.use('/api', apiRoute);
 
 apiRoute.post('/loginauth', loginAuth.userAuthentication);
 apiRoute.post('/signup', loginAuth.userSignUp);
-apiRoute.get('/getallusersforgoal', userDetailes.getUserDetails);
 apiRoute.post('/setusergoal', userDetailes.setUserGoal);
+apiRoute.get('/getallusersforgoal', userDetailes.getUserDetails);
 apiRoute.get('/getAllGoalByUser', goalInfo.getAllGoalByUser);
+apiRoute.get('/getAllGoalAssigned', goalInfo.getAllGoalAssigned);
 apiRoute.get('/getUserRole', userDetailes.getUserRole);
+apiRoute.get('/getCommentsForGoal', goalComments.getCommentsForGoal);
 
 
 /****************************************/
