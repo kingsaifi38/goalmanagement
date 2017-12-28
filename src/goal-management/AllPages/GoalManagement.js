@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tabs from '../AllPages/Navbar';
 import PocGMPage from '../AllPages/SubPages/PocGMPage';
+import UserGMPage from '../AllPages/SubPages/UserGMPage';
 import { User } from '../ApiCalling/User'
 import Cookies from 'universal-cookie';
 class GoalManagement extends Component {
@@ -31,7 +32,19 @@ class GoalManagement extends Component {
                             <PocGMPage />
                         </div>
                     </div>
+                ); break;
+            case 2:
+                return (
+                    <div>
+                        <Tabs activeEle="Goal Management" />
+                        <div className="container">
+                            <h1>Goal Management</h1>
+                            <hr />
+                            <UserGMPage />
+                        </div>
+                    </div>
                 );
+                break;
             default: return null;
         }
     }

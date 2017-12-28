@@ -13,7 +13,6 @@ class PocGMPage extends Component {
     render() {
         return (
             <div>
-                {this.state.hadChanges}
                 <div className="row" style={{ paddingTop: '1rem' }}>
                     <div className="col-md-6">
                         <div className="btn-group">
