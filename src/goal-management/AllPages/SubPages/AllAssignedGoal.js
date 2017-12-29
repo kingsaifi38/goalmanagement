@@ -52,8 +52,7 @@ class AllAssignedGoal extends Component {
                         <td>{singleGoal.name}</td>
                         <td>{startDate}</td>
                         <td>{endtDate}</td>
-                        <td>0% (static now)</td>
-
+                        <td>{singleGoal.progress}%</td>
                     </tr>);
                 })
             );
@@ -78,7 +77,7 @@ class AllAssignedGoal extends Component {
                     <tbody>
                         {this.renderTableBody()}
                     </tbody>
-                </table >
+                </table>
             );
         } else {
             return (

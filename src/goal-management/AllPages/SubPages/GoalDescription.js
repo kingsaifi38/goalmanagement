@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import { Goal } from '../../ApiCalling/goal'
+import UserCommentSection from '../Components/UserCommentSection'
+import GoalProgressModel from '../Models/GoalProgressModel'
 
 class GoalDescription extends Component {
     constructor(props) {
@@ -9,28 +11,22 @@ class GoalDescription extends Component {
         const userId = this.cookies.get('currentUser');
         this.state = {
             userId: userId,
-            allComments: '',
-            currentGoalInfo: props.currentGoalInfo
+            currentGoalInfo: props.currentGoalInfo,
         }
     }
 
-    componentWillMount() {
-        Goal.getCommentsForGoal(this.state.currentGoalInfo.goal_id).then(response => {
-            this.setState({
-                allComments: response.data.data
-            });
-        });
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
     render() {
-        console.log(this.state);
         return (
-            <div className="row">
-                <h3>{this.state.currentGoalInfo.goal_title}<small className="text-muted"> Progress (10%)</small></h3>
+            <div>
+                <div className="row">
+                    <h3>{this.state.currentGoalInfo.goal_title}
+                        <small className="text-muted"><a href="#" onClick={() => { $('#GoalProgressModel').modal('show') }}> Progress ({this.state.currentGoalInfo.progress}%) </a> </small>
+                        <GoalProgressModel id="GoalProgressModel" />
+                    </h3>
+                </div>
+                <div className="row">
+                    <UserCommentSection goalId={this.state.currentGoalInfo.goal_id} userId={this.state.userId} />
+                </div>
             </div>
         );
     }

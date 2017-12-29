@@ -25,11 +25,11 @@
     "Analytics",
     "Platform"
   ],
-  "author": "SICK",
+  "author": "Saifi",
   "license": "UNLICENSED",
   "private": false,
   "repository": {
-    "type": "svn",
+    "type": "git",
     "url": ""
   },
   "dependencies": {
@@ -115,6 +115,6 @@
     "webpack": "1.14.0",
     "webpack-dev-middleware": "1.9.0",
     "webpack-hot-middleware": "2.15.0",
-    "universal-cookie":"2.1.2"
+    "universal-cookie": "2.1.2"
   }
 }
