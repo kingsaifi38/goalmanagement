@@ -12,6 +12,36 @@ class GoalDescription extends Component {
         this.state = {
             userId: userId,
             currentGoalInfo: props.currentGoalInfo,
+            progressInfo: ''
+
+        }
+        this.someVar = "";
+        this.handler = this.handler.bind(this)
+        this.setProgress = this.setProgress.bind(this);
+    }
+
+    resetFormAndClose() {
+        $('#form_GoalProgressModel')[0].reset();
+        $('#GoalProgressModel').modal('hide');
+    }
+
+    setProgress(someVal) {
+        this.someVar = someVal;
+    }
+
+    handler(e) {
+        this.resetFormAndClose();
+        this.setState({
+            progressInfo: this.someVar
+        });
+        e.preventDefault()
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state != nextState) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -21,7 +51,7 @@ class GoalDescription extends Component {
                 <div className="row">
                     <h3>{this.state.currentGoalInfo.goal_title}
                         <small className="text-muted"><a href="#" onClick={() => { $('#GoalProgressModel').modal('show') }}> Progress ({this.state.currentGoalInfo.progress}%) </a> </small>
-                        <GoalProgressModel id="GoalProgressModel" />
+                        <GoalProgressModel handler={this.handler} setProgress={this.setProgress} id="GoalProgressModel" />
                     </h3>
                 </div>
                 <div className="row">

@@ -7,13 +7,7 @@ class GoalProgressModel extends Component {
         this.state = {
             id: props.id
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleSubmit(event) {
-        this.resetFormAndClose();
-        event.preventDefault();
     }
 
     handleChange(event) {
@@ -22,6 +16,12 @@ class GoalProgressModel extends Component {
         this.setState({
             [name]: value
         });
+    }
+
+    shouldComponentUpdate(props, nextState) {
+        this.props.setProgress(nextState);
+        return true;
+
     }
 
     resetFormAndClose() {
@@ -33,11 +33,16 @@ class GoalProgressModel extends Component {
         return (
             <div className="modal fade" id={this.state.id} tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
-                    <form onSubmit={this.handleSubmit} method="post" id={'form_' + this.state.id} className="modal-content">
+                    <form onSubmit={this.props.handler} method="post" id={'form_' + this.state.id} className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">Set Progress </h5>
                         </div>
                         <div className="modal-body">
+                            <div className="row">
+                                <div className="col-md-12">
+
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col-md-12 input-group">
                                     <textarea rows="5" required name="comment" className="form-control" onChange={this.handleChange} placeholder="Enter Comment for the progress" />
