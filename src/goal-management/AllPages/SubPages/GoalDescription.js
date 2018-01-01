@@ -12,10 +12,11 @@ class GoalDescription extends Component {
         this.state = {
             userId: userId,
             currentGoalInfo: props.currentGoalInfo,
-            progressInfo: ''
-
+            goalProgress: props.currentGoalInfo.progress,
+            progressInfo: '',
+            key: 0
         }
-        this.someVar = "";
+        this.InfoFromProgress = "";
         this.handler = this.handler.bind(this)
         this.setProgress = this.setProgress.bind(this);
     }
@@ -26,13 +27,23 @@ class GoalDescription extends Component {
     }
 
     setProgress(someVal) {
-        this.someVar = someVal;
+        this.InfoFromProgress = someVal;
     }
 
     handler(e) {
-        this.resetFormAndClose();
-        this.setState({
-            progressInfo: this.someVar
+        const data = {
+            comment: this.InfoFromProgress.comment,
+            goalId: this.state.currentGoalInfo.goal_id,
+            userlId: this.state.userId,
+            progress: this.InfoFromProgress.progress
+        };
+        Goal.setCommentsWithProgressForGoal(data).then(response => {
+            this.resetFormAndClose();
+            this.setState({
+                progressInfo: this.InfoFromProgress,
+                key: (this.state.key + 1),
+                goalProgress: this.InfoFromProgress.progress
+            });
         });
         e.preventDefault()
     }
@@ -50,12 +61,12 @@ class GoalDescription extends Component {
             <div>
                 <div className="row">
                     <h3>{this.state.currentGoalInfo.goal_title}
-                        <small className="text-muted"><a href="#" onClick={() => { $('#GoalProgressModel').modal('show') }}> Progress ({this.state.currentGoalInfo.progress}%) </a> </small>
-                        <GoalProgressModel handler={this.handler} setProgress={this.setProgress} id="GoalProgressModel" />
+                        <small className="text-muted"><a href="#" onClick={() => { $('#GoalProgressModel').modal('show') }}> Progress ({this.state.goalProgress}%) </a> </small>
+                        <GoalProgressModel progress={this.state.currentGoalInfo.progress} handler={this.handler} setProgress={this.setProgress} id="GoalProgressModel" />
                     </h3>
                 </div>
                 <div className="row">
-                    <UserCommentSection goalId={this.state.currentGoalInfo.goal_id} userId={this.state.userId} />
+                    <UserCommentSection key={this.state.key} goalId={this.state.currentGoalInfo.goal_id} userId={this.state.userId} />
                 </div>
             </div>
         );

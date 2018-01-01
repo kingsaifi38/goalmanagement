@@ -5,7 +5,8 @@ class GoalProgressModel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: props.id
+            id: props.id,
+            progress: props.progress
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -21,12 +22,6 @@ class GoalProgressModel extends Component {
     shouldComponentUpdate(props, nextState) {
         this.props.setProgress(nextState);
         return true;
-
-    }
-
-    resetFormAndClose() {
-        $('#form_' + this.state.id)[0].reset();
-        $('#' + this.state.id).modal('hide');
     }
 
     render() {
@@ -39,8 +34,11 @@ class GoalProgressModel extends Component {
                         </div>
                         <div className="modal-body">
                             <div className="row">
-                                <div className="col-md-12">
-
+                                <div className="col-md-10">
+                                    <input type="range" required className="form-control" name="progress" onChange={this.handleChange} value={this.state.progress} min="0" max="100" step="10" />
+                                </div>
+                                <div className="col-md-2">
+                                    {this.state.progress}%
                                 </div>
                             </div>
                             <div className="row">

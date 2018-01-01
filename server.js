@@ -36,6 +36,8 @@ apiRoute.get('/getAllGoalByUser', goalInfo.getAllGoalByUser);
 apiRoute.get('/getAllGoalAssigned', goalInfo.getAllGoalAssigned);
 apiRoute.get('/getUserRole', userDetailes.getUserRole);
 apiRoute.get('/getCommentsForGoal', goalComments.getCommentsForGoal);
+apiRoute.post('/setCommentsWithProgressForGoal', goalComments.setCommentsWithProgressForGoal);
+apiRoute.post('/setCommentsForGoal', goalComments.setCommentsForGoal);
 
 
 /****************************************/

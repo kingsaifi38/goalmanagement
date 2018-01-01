@@ -5,16 +5,16 @@ import GoalProgressModel from '../Models/GoalProgressModel'
 class UserCommentSection extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             userId: props.userId,
             goalId: props.goalId,
             allComments: '',
+            commentToPush: '',
         }
         this.addComments = this.addComments.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
-
-    componentWillMount() {
+    componentDidMount() {
         Goal.getCommentsForGoal(this.state.goalId).then(response => {
             this.setState({
                 allComments: response.data.data
@@ -22,8 +22,41 @@ class UserCommentSection extends Component {
         });
     }
 
+    shouldComponentUpdate(nextPorps, nextState) {
+        if (this.state != nextState) {
+            Goal.getCommentsForGoal(this.state.goalId).then(response => {
+                this.setState({
+                    allComments: response.data.data
+                });
+            });
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    handleChange(event) {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+            [name]: value
+        });
+    }
+
     addComments(event) {
-        alert(event.target.tagName);
+        if (this.state.commentToPush != '') {
+            const data = {
+                comment: this.state.commentToPush,
+                goalId: this.state.goalId,
+                userlId: this.state.userId
+            };
+            Goal.setCommentForGoal(data).then(response => {
+                console.log(response);
+                this.setState({
+                    commentToPush: ''
+                });
+            });
+        }
     }
 
     getFormattedTime(time) {
@@ -46,7 +79,6 @@ class UserCommentSection extends Component {
                                     </blockquote>
                                 </div>
                             </div >
-
                         )
                     })
                     }
@@ -70,13 +102,13 @@ class UserCommentSection extends Component {
                 <div className="row"><div className="col-md-6"><hr /></div></div>
                 <div className="row">
                     <div className="col-md-4">
-                        <input className="form-control" type="text" />
+                        <input className="form-control" value={this.state.commentToPush} name="commentToPush" onChange={this.handleChange} type="text" placeholder="Enter Comment here.." />
                     </div>
                     <div className="col-md-2">
                         <button className="form-control" onClick={this.addComments}>Comment</button>
                     </div>
-
                 </div>
+                <div className="row"><div className="col-md-6"><hr /></div></div>
             </div >
         );
     }

@@ -11,3 +11,24 @@ exports.getCommentsForGoal = function (req, res) {
         }
     });
 }
+
+exports.setCommentsWithProgressForGoal = function (req, res) {
+    var query = "INSERT INTO `goal_comments` (`comment`, `goal_id`, `comment_by`, `comment_date`) VALUES (?, ?, ?, CURRENT_TIMESTAMP);UPDATE `goal_progress` SET `progress`=? WHERE goal_id=?";
+    connection.query(query, [req.body.comment, req.body.goalId, req.body.userlId, req.body.progress, req.body.goalId], function (err, results) {
+        if (err) {
+            res.send({ status: 'failed' });
+        } else {
+            res.send({ status: 'success', data: results });
+        }
+    });
+}
+exports.setCommentsForGoal = function (req, res) {
+    var query = "INSERT INTO `goal_comments` (`comment`, `goal_id`, `comment_by`, `comment_date`) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+    connection.query(query, [req.body.comment, req.body.goalId, req.body.userlId], function (err, results) {
+        if (err) {
+            res.send({ status: 'failed' });
+        } else {
+            res.send({ status: 'success', data: results });
+        }
+    });
+}
