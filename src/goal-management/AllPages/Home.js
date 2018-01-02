@@ -19,7 +19,7 @@ class Home extends Component {
     render() {
         return (
             <div className="container m-3">
-                <POCHomePage/>
+                <POCHomePage />
             </div>
         );
     }

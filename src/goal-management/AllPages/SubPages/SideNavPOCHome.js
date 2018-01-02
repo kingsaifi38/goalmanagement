@@ -7,20 +7,13 @@ class SideNavPOCHome extends Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         return (
             <div className="list-group col-md-2">
-                <div className="list-group-item list-group-item-action">Assigned Users</div>
-                <div className="list-group-item list-group-item-action" to="/app/home">Assigned Project</div>
-                <div className="list-group-item list-group-item-action" to="/app/home">Assigned Project</div>
-            </div >
+                <div className="list-group-item list-group-item-action" onClick={() => { this.props.changeMethod('assignedUsers') }}>Assigned Users</div>
+                <div className="list-group-item list-group-item-action" onClick={() => { this.props.changeMethod('assignedProjects') }} >Assigned Project</div>
+            </div>
         );
-
-
     }
 }
 

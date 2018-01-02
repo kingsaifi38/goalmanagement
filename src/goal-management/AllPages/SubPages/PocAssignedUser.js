@@ -23,17 +23,35 @@ class PocAssignedUser extends Component {
         return nextState != this.state
     }
 
+    getAllRow() {
+        return (
+            this.state.allUsers.map((value, index) => {
+                return (
+                    <div key={"allUsers_" + index} className="card">
+                        <div className="card-header" role="tab" id="headingThree">
+                            <h5 className="mb-0">
+                                <a className="collapsed" data-toggle="collapse" href={"#allUsers_" + index} role="button" aria-expanded="false" aria-controls={"allUsers_" + index}>
+                                    {value.name}
+                                </a>
+                            </h5>
+                        </div>
+                        <div id={"allUsers_" + index} className="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div className="card-body">
+                                {"Assigned Project"}
+                            </div>
+                        </div>
+                    </div>
+                );
+            })
+        )
+    }
+
     render() {
         if (this.state.allUsers != '') {
             return (
-                <ul className="list-group">
-                    <li className="list-group-item">User 1</li>
-                    <li className="list-group-item">User 2</li>
-                    <li className="list-group-item">User 3</li>
-                    <li className="list-group-item">User 4</li>
-                    <li className="list-group-item">User 5</li>
-                    <li className="list-group-item">User 6</li>
-                </ul>
+                <div>
+                    {this.getAllRow()}
+                </div>
             )
         } else {
             return (

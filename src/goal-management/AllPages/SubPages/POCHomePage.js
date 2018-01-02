@@ -8,6 +8,7 @@ class POCHomePage extends Component {
         this.state = {
             methods: "assignedUsers"
         }
+        this.changeMethodto = this.changeMethodto.bind(this);
     }
 
     getElementbyAction(actionName) {
@@ -17,11 +18,16 @@ class POCHomePage extends Component {
         }
     }
 
-    render() {
+    changeMethodto(newMethod) {
+        this.setState({
+            methods: newMethod
+        });
+    }
 
+    render() {
         return (
             <div className="row" >
-                <SideNavPOCHome />
+                <SideNavPOCHome changeMethod={this.changeMethodto} />
                 <div className="col-md-10">
                     {this.getElementbyAction(this.state.methods)}
                 </div>
