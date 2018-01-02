@@ -1,8 +1,8 @@
 export const User = {
-    allUsersForGoal() {
+    allUsersForGoal(userId) {
         return axios({
             method: 'get',
-            url: '/api/getAllUsersForGoal'
+            url: '/api/getAllUsersForGoal?userId=' + userId
         });
     },
     getUserRole(userId) {

@@ -31,7 +31,7 @@ app.use('/api', apiRoute);
 apiRoute.post('/loginauth', loginAuth.userAuthentication);
 apiRoute.post('/signup', loginAuth.userSignUp);
 apiRoute.post('/setusergoal', userDetailes.setUserGoal);
-apiRoute.get('/getallusersforgoal', userDetailes.getUserDetails);
+apiRoute.get('/getallusersforgoal', userDetailes.getallusersforgoal);
 apiRoute.get('/getAllGoalByUser', goalInfo.getAllGoalByUser);
 apiRoute.get('/getAllGoalAssigned', goalInfo.getAllGoalAssigned);
 apiRoute.get('/getUserRole', userDetailes.getUserRole);

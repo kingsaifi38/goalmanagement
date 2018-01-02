@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 class SideNavPOCHome extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +14,9 @@ class SideNavPOCHome extends Component {
     render() {
         return (
             <div className="list-group col-md-2">
-                <NavLink className="list-group-item list-group-item-action" activeClassName="bg-success text-white" to="/app/home/assigneduser">Assigned Users</NavLink>
-                <NavLink className="list-group-item list-group-item-action" activeClassName="bg-success text-white" to="/app/home/assignedProjects">Assigned Projects</NavLink>
+                <div className="list-group-item list-group-item-action">Assigned Users</div>
+                <div className="list-group-item list-group-item-action" to="/app/home">Assigned Project</div>
+                <div className="list-group-item list-group-item-action" to="/app/home">Assigned Project</div>
             </div >
         );
 

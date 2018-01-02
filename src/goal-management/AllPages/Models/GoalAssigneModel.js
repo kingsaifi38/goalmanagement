@@ -44,7 +44,7 @@ class GoalAssigneModel extends Component {
             userId: this.currentUser
         }
 
-        User.allUsersForGoal().then(response => {
+        User.allUsersForGoal(this.currentUser).then(response => {
             const userData = response.data.data;
             const assignee = userData[0].user_id;
             this.setState({

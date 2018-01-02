@@ -1,35 +1,32 @@
 import React, { Component } from 'react';
 import SideNavPOCHome from './sideNavPOCHome';
-
+import PocAssignedUser from './PocAssignedUser'
+import PocAssignedProject from './PocAssignedProject'
 class POCHomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            methods: "assignedUsers"
         }
     }
-    componentDidMount() {
 
+    getElementbyAction(actionName) {
+        switch (this.state.methods) {
+            case "assignedUsers": return <PocAssignedUser />
+            case "assignedProjects": return <PocAssignedProject />
+        }
     }
-    render() {
-        return (
-            <div className="row">
-                <SideNavPOCHome />
 
+    render() {
+
+        return (
+            <div className="row" >
+                <SideNavPOCHome />
                 <div className="col-md-10">
-                    <ul className="list-group">
-                        <li className="list-group-item">User 1</li>
-                        <li className="list-group-item">User 2</li>
-                        <li className="list-group-item">User 3</li>
-                        <li className="list-group-item">User 4</li>
-                        <li className="list-group-item">User 5</li>
-                        <li className="list-group-item">User 6</li>
-                    </ul>
+                    {this.getElementbyAction(this.state.methods)}
                 </div>
             </div>
         );
-
-
     }
 }
 

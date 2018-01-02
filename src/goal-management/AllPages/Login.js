@@ -6,13 +6,12 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.cookies = new Cookies();
-        this.isAuthenticated = this.cookies.get('isAuthenticated') || false;
         this.state = {
 
         }
     }
     componentWillMount() {
-        if (this.isAuthenticated) {
+        if (this.cookies.get('isAuthenticated') == 'true') {
             this.props.history.push('home');
         }
     }
@@ -23,7 +22,7 @@ class Login extends Component {
         LoginAuth.isLogin(usename, password).then(response => {
             this.isAuthenticated = response.data.data[0].isLogin == 1;
             if (this.isAuthenticated) {
-                this.cookies.set('isAuthenticated', true);
+                this.cookies.set('isAuthenticated', 'true');
                 this.cookies.set('currentUser', response.data.data[0].user_id);
                 this.props.history.push('home');
             } else {

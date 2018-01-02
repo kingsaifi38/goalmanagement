@@ -9,6 +9,15 @@ import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
 
 class MainApp extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log("componentWillUpdate");
+    }
+
     render() {
         return (
             <div>
@@ -19,10 +28,7 @@ class MainApp extends Component {
                             <Route exact path="/app" component={Login} />
                             <Route path="/app/login" component={Login} />
                             <Route path="/app/signup" component={SignUp} />
-                            
-                            {/* https://reacttraining.com/react-router/web/api/Route/path-string */}
-                            <Redirect exact strict from='/app/home' to='/app/home/assigneduser' />                          
-                            <Route path="/app/home/:newMetho" component={Home} />
+                            <Route path="/app/home" component={Home} />
                             <Route path="/app/setagoal" component={GoalManagement} />
                             {/* Other Routes */}
                             <Route path="/app/*" component={Login} />

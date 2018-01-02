@@ -8,16 +8,16 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.cookies = new Cookies();
-        this.isAuthenticated = this.cookies.get('isAuthenticated') || false;
     }
-    componentWillMount() {
-        if (!this.isAuthenticated) {
-            this.props.history.push('login');
+    componentDidMount() {
+        if (!this.cookies.get('isAuthenticated') == 'true') {
+            this.cookies.remove('isAuthenticated');
+            this.cookies.remove('currentUser');
+            this.props.history.push("login");
         }
     }
     render() {
         return (
-
             <div className="container m-3">
                 <POCHomePage/>
             </div>

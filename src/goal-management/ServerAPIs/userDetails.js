@@ -2,9 +2,9 @@ var config = require('./dbconfig');
 
 var connection = config.pool;
 
-exports.getUserDetails = function (req, res) {
-    var query = 'SELECT user_id,name,username FROM user_details';
-    connection.query(query, function (err, results) {
+exports.getallusersforgoal = function (req, res) {
+    var query = 'SELECT user_id,name,username FROM user_details where user_id in (SELECT user from user_poc_mapping WHERE poc=?)';
+    connection.query(query, [req.query.userId], function (err, results) {
         if (err) {
             res.send({ status: 'failed' });
         } else {
