@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tabs from '../AllPages/Navbar';
 import { LoginAuth } from '../ApiCalling/LoginAuth';
+import POCHomePage from './SubPages/POCHomePage'
 import Cookies from 'universal-cookie';
 
 class Home extends Component {
@@ -16,12 +17,9 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>
-                <Tabs activeEle="Home" />
-                <div className="container">
-                    <h1>Home</h1>
-                    <hr />
-                </div>
+
+            <div className="container m-3">
+                <POCHomePage/>
             </div>
         );
     }

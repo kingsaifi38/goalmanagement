@@ -22,29 +22,8 @@ class GoalManagement extends Component {
     }
     render() {
         switch (this.state.role) {
-            case 3:
-                return (
-                    <div>
-                        <Tabs activeEle="Goal Management" />
-                        <div className="container">
-                            <h1>Goal Management</h1>
-                            <hr />
-                            <PocGMPage />
-                        </div>
-                    </div>
-                ); break;
-            case 2:
-                return (
-                    <div>
-                        <Tabs activeEle="Goal Management" />
-                        <div className="container">
-                            <h1>Goal Management</h1>
-                            <hr />
-                            <UserGMPage />
-                        </div>
-                    </div>
-                );
-                break;
+            case 3: return <PocGMPage />;
+            case 2: return <UserGMPage />;
             default: return null;
         }
     }

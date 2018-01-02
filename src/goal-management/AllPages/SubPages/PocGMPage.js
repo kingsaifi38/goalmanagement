@@ -12,8 +12,8 @@ class PocGMPage extends Component {
     }
     render() {
         return (
-            <div>
-                <div className="row" style={{ paddingTop: '1rem' }}>
+            <div className="container m-3">
+                <div className="row">
                     <div className="col-md-6">
                         <div className="btn-group">
                             <button className="btn btn-success btn-lg" type="button" onClick={() => { $('#assignAGoalModel').modal('show'); }}>

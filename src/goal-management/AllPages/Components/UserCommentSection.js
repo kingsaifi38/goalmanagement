@@ -10,6 +10,7 @@ class UserCommentSection extends Component {
             goalId: props.goalId,
             allComments: '',
             commentToPush: '',
+            key: 0
         }
         this.addComments = this.addComments.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,13 +23,18 @@ class UserCommentSection extends Component {
         });
     }
 
-    shouldComponentUpdate(nextPorps, nextState) {
-        if (this.state != nextState) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.key != prevState.key) {
             Goal.getCommentsForGoal(this.state.goalId).then(response => {
                 this.setState({
                     allComments: response.data.data
                 });
             });
+        }
+    }
+
+    shouldComponentUpdate(nextPorps, nextState) {
+        if (this.state != nextState) {
             return true;
         } else {
             return false;
@@ -51,9 +57,9 @@ class UserCommentSection extends Component {
                 userlId: this.state.userId
             };
             Goal.setCommentForGoal(data).then(response => {
-                console.log(response);
                 this.setState({
-                    commentToPush: ''
+                    commentToPush: '',
+                    key: (this.state.key + 1)
                 });
             });
         }
@@ -67,10 +73,10 @@ class UserCommentSection extends Component {
         const Comments = this.state.allComments;
         if (Comments !== '' && Comments.length != 0) {
             return (
-                <div className="row">
+                <div className="row" key={this.state.key}>
                     {Comments.map((singleComment, index) => {
                         return (
-                            <div className=" col-md-7 card mt-3 col-md-6 box-shadow" style={CSS.boxShadow} key={'_key' + index} >
+                            <div key={index} className=" col-md-7 card mt-3 col-md-6 box-shadow" style={CSS.boxShadow} key={'_key' + index} >
                                 <div className="card-body pb-0">
                                     <h6 className="card-title mb-1">@{singleComment.name}</h6>
                                     <blockquote>

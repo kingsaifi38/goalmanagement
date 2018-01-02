@@ -9,8 +9,8 @@ class UserGMPage extends Component {
     }
     render() {
         return (
-            <div>
-                <div className="row" style={{ paddingTop: '1rem' }}>
+            <div className="container m-3">
+                <div className="row">
                     <div className="col-md-12">
                         <AllAssignedGoal />
                     </div>

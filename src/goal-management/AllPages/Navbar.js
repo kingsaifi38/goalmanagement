@@ -1,32 +1,30 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
+import { NavLink } from 'react-router-dom';
 
 class Tabs extends Component {
 
     constructor(props) {
         super(props);
         this.cookies = new Cookies();
-        this.activeElement = props.activeEle;
     }
 
     renderTab(name, location) {
-        return (
-            <li className="nav-item">
-                <a className={"nav-link " + (this.activeElement == name ? "active" : "")} href={location}>{name}</a>
-            </li>
-        );
+        return <NavLink className="nav-item nav-link" to={location + ""}>{name}</NavLink>
     }
 
     render() {
-        return (
-            <div>
+        if (!this.cookies.get('isAuthenticated')) {
+            return null;
+        } else {
+            return (
                 <ul className="nav nav-tabs">
                     {this.renderTab('Home', '/app/home')}
                     {this.renderTab('Goal Management', '/app/setagoal')}
                     {this.renderLogout()}
                 </ul>
-            </div>
-        );
+            );
+        }
     }
 
     logoutAndShift = function (props) {

@@ -41,7 +41,7 @@ class AllAssignedGoal extends Component {
                     const endtDate = singleGoal.goal_end_date.split('T')[0];
                     return (<tr key={'p_' + index}>
                         <th scope="row">{index + 1}</th>
-                        <td><a href="#" onClick={() => {
+                        <td><a href="javascript:void(0)" onClick={() => {
                             this.setState({
                                 mode: 'description',
                                 descriptionId: singleGoal.goal_id,
