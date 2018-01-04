@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SideNavPOCHome from './sideNavPOCHome';
+import SideNavPOCHome from './SideNavPOCHome';
 import PocAssignedUser from './PocAssignedUser'
 import PocAssignedProject from './PocAssignedProject'
 class POCHomePage extends Component {

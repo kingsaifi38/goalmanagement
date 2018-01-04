@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainApp from '../src/goal-management/App'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 window.baseUrl = 'http://localhost';
 
 
 
 const App = () => (
-  <div>
+  <MuiThemeProvider>
     <MainApp />
-  </div>
+  </MuiThemeProvider>
 )
 
 ReactDOM.render(
