@@ -18,11 +18,19 @@ class Login extends Component {
         this.login = this.login.bind(this);
     }
 
+    componentWillMount() {
+
+        if (this.cookies.get('isAuthenticated')) {
+            this.props.setLoginState(true);
+        }
+
+    }
+
     login(event) {
         LoginAuth.isLogin(this.state.userName, this.state.userPassword).then(response => {
             this.isAuthenticated = response.data.data[0].isLogin == 1;
             if (this.isAuthenticated) {
-                this.cookies.set('isAuthenticated', 'true');
+                this.cookies.set('isAuthenticated', true);
                 this.cookies.set('currentUser', response.data.data[0].user_id);
                 this.props.setLoginState(true);
 
@@ -47,7 +55,7 @@ class Login extends Component {
                     hintText="Enter your Username" floatingLabelText="Username" fullWidth={true}
                 />
                 <br />
-                <TextField floatingLabelStyle={styles.textFieldStyle.floatingLabelStyle} name="userPassword"
+                <TextField type="password" floatingLabelStyle={styles.textFieldStyle.floatingLabelStyle} name="userPassword"
                     floatingLabelFocusStyle={styles.textFieldStyle.floatingLabelFocusStyle} onChange={this.handleChange}
                     hintText="Enter your Password" floatingLabelText="Password" fullWidth={true}
                 />

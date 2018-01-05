@@ -9,13 +9,7 @@ class UserGMPage extends Component {
     }
     render() {
         return (
-            <div className="container m-3">
-                <div className="row">
-                    <div className="col-md-12">
-                        <AllAssignedGoal />
-                    </div>
-                </div>
-            </div >
+            <AllAssignedGoal />
         );
 
 

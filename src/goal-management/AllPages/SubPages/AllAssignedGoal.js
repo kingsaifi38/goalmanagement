@@ -3,6 +3,18 @@ import { Goal } from '../../ApiCalling/goal'
 import GoalDescription from '../SubPages/GoalDescription'
 import Cookies from 'universal-cookie';
 
+import Paper from 'material-ui/Paper';
+import { blue300, yellow50 } from 'material-ui/styles/colors';
+import {
+    Table,
+    TableBody,
+    TableFooter,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn,
+} from 'material-ui/Table';
+
 class AllAssignedGoal extends Component {
     constructor(props) {
         super(props);
@@ -62,22 +74,45 @@ class AllAssignedGoal extends Component {
     render() {
         if (this.state.mode == "table") {
             return (
-                <table className="table table-striped table-bordered">
-                    <thead >
-                        <tr className="bg-success text-white">
-                            <th>#</th>
-                            <th >Goal</th>
-                            <th width="30%">Description</th>
-                            <th width="12%">Assigned by</th>
-                            <th width="10%">Start Date</th>
-                            <th width="10%">End Date</th>
-                            <th>Progress</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderTableBody()}
-                    </tbody>
-                </table>
+                <Paper style={styles.paperStyle} rounded={false} zDepth={4}>
+                    <Table>
+                        <TableHeader style={styles.headerStyle} displaySelectAll={false}
+                            adjustForCheckbox={false}>
+                            <TableRow>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>ID</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>Name</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>Status</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody displayRowCheckbox={false}>
+                            <TableRow hoverable={true}>
+                                <TableRowColumn>1</TableRowColumn>
+                                <TableRowColumn>John Smith</TableRowColumn>
+                                <TableRowColumn>Employed</TableRowColumn>
+                            </TableRow>
+                            <TableRow>
+                                <TableRowColumn>2</TableRowColumn>
+                                <TableRowColumn>Randal White</TableRowColumn>
+                                <TableRowColumn>Unemployed</TableRowColumn>
+                            </TableRow>
+                            <TableRow>
+                                <TableRowColumn>3</TableRowColumn>
+                                <TableRowColumn>Stephanie Sanders</TableRowColumn>
+                                <TableRowColumn>Employed</TableRowColumn>
+                            </TableRow>
+                            <TableRow>
+                                <TableRowColumn>4</TableRowColumn>
+                                <TableRowColumn>Steve Brown</TableRowColumn>
+                                <TableRowColumn>Employed</TableRowColumn>
+                            </TableRow>
+                            <TableRow>
+                                <TableRowColumn>5</TableRowColumn>
+                                <TableRowColumn>Christopher Nolan</TableRowColumn>
+                                <TableRowColumn>Unemployed</TableRowColumn>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </Paper>
             );
         } else {
             return (
@@ -86,4 +121,18 @@ class AllAssignedGoal extends Component {
         }
     }
 }
+
+const styles = {
+    paperStyle: {
+        width: '98%',
+        margin: '1%',
+        padding: '1%',
+    }, headerStyle:
+        {
+            backgroundColor: blue300,
+        }, TableHeaderColumn: {
+            color: yellow50
+        }
+};
+
 export default AllAssignedGoal;
