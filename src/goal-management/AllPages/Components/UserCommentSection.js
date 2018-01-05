@@ -2,6 +2,24 @@ import React, { Component } from 'react';
 import { Goal } from '../../ApiCalling/goal'
 import { CSS } from '../../REACT-CSS/style'
 import GoalProgressModel from '../Models/GoalProgressModel'
+
+
+
+import { List, ListItem } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+import Avatar from 'material-ui/Avatar';
+import { grey400, darkBlack, lightBlack, deepOrange300, purple500, white } from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
+
+
+
+
+
 class UserCommentSection extends Component {
     constructor(props) {
         super(props);
@@ -73,22 +91,16 @@ class UserCommentSection extends Component {
         const Comments = this.state.allComments;
         if (Comments !== '' && Comments.length != 0) {
             return (
-                <div className="row" key={this.state.key}>
-                    {Comments.map((singleComment, index) => {
-                        return (
-                            <div key={index} className=" col-md-7 card mt-3 col-md-6 box-shadow" style={CSS.boxShadow} key={'_key' + index} >
-                                <div className="card-body pb-0">
-                                    <h6 className="card-title mb-1">@{singleComment.name}</h6>
-                                    <blockquote>
-                                        <p>{singleComment.comment}</p>
-                                        <footer className="blockquote-footer">{this.getFormattedTime(singleComment.comment_date)}</footer >
-                                    </blockquote>
-                                </div>
-                            </div >
-                        )
-                    })
-                    }
-                </div>
+                Comments.map((singleComment, index) => {
+                    return (
+                        <ListItem key={index}
+                            leftAvatar={<Avatar />}
+                            primaryText={'@' + singleComment.name}
+                            secondaryText={<p><span style={singleCommentStyle}>{singleComment.comment}</span> --{this.getFormattedTime(singleComment.comment_date)}</p>}
+                            secondaryTextLines={2} >
+                        </ListItem>
+                    )
+                })
             );
         } else {
             return (
@@ -103,20 +115,47 @@ class UserCommentSection extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
+
+            <List style={{ width: '50%' }}>
+                <Subheader>All Comments</Subheader>
                 {this.getAllComments()}
-                <div className="row"><div className="col-md-6"><hr /></div></div>
-                <div className="row">
-                    <div className="col-md-4">
-                        <input className="form-control" value={this.state.commentToPush} name="commentToPush" onChange={this.handleChange} type="text" placeholder="Enter Comment here.." />
+                {/* <div className="row"><div className="col-md-6"><hr /></div></div>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <input className="form-control" value={this.state.commentToPush} name="commentToPush" onChange={this.handleChange} type="text" placeholder="Enter Comment here.." />
+                        </div>
+                        <div className="col-md-2">
+                            <button className="form-control" onClick={this.addComments}>Comment</button>
+                        </div>
                     </div>
-                    <div className="col-md-2">
-                        <button className="form-control" onClick={this.addComments}>Comment</button>
-                    </div>
-                </div>
-                <div className="row"><div className="col-md-6"><hr /></div></div>
-            </div >
+                    <div className="row"><div className="col-md-6"><hr /></div></div> */}
+            </List>
+
         );
     }
 }
+
+
+const iconButtonElement = (
+    <IconButton
+        touch={true}
+        tooltip="more"
+        tooltipPosition="bottom-left"
+    >
+        <MoreVertIcon color={grey400} />
+    </IconButton>
+);
+
+const rightIconMenu = (
+    <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem>Reply</MenuItem>
+        <MenuItem>Forward</MenuItem>
+        <MenuItem>Delete</MenuItem>
+    </IconMenu>
+);
+
+const singleCommentStyle = {
+    color: darkBlack,
+}
+
 export default UserCommentSection;

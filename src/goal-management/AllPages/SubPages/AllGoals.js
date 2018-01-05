@@ -25,7 +25,6 @@ class AllGoalTable extends Component {
         });
     }
 
-
     renderTableBody() {
         if (this.state.allGoal != '') {
             const goals = this.state.allGoal;

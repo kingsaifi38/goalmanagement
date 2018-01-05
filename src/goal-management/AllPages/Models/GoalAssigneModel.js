@@ -23,7 +23,7 @@ class GoalAssigneModel extends Component {
 
     handleSubmit(event) {
         User.setGoalForUser(this.state).then(response => {
-            this.resetFormAndClose();
+            this.resetFormAndClose();            
         });
         event.preventDefault();
     }

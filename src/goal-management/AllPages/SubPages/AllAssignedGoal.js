@@ -4,11 +4,11 @@ import GoalDescription from '../SubPages/GoalDescription'
 import Cookies from 'universal-cookie';
 
 import Paper from 'material-ui/Paper';
-import { blue300, yellow50 } from 'material-ui/styles/colors';
+import FlatButton from 'material-ui/FlatButton';
+import { cyan700, white } from 'material-ui/styles/colors';
 import {
     Table,
     TableBody,
-    TableFooter,
     TableHeader,
     TableHeaderColumn,
     TableRow,
@@ -26,6 +26,7 @@ class AllAssignedGoal extends Component {
             currentGoalInfo: ''
         }
         this.cookies = new Cookies();
+        this.backButton = this.backButton.bind(this);
     }
 
     componentWillMount() {
@@ -51,21 +52,23 @@ class AllAssignedGoal extends Component {
                 goals.map((singleGoal, index) => {
                     const startDate = singleGoal.goal_start_date.split('T')[0];
                     const endtDate = singleGoal.goal_end_date.split('T')[0];
-                    return (<tr key={'p_' + index}>
-                        <th scope="row">{index + 1}</th>
-                        <td><a href="javascript:void(0)" onClick={() => {
-                            this.setState({
-                                mode: 'description',
-                                descriptionId: singleGoal.goal_id,
-                                currentGoalInfo: singleGoal
-                            })
-                        }}>{singleGoal.goal_title}</a></td>
-                        <td>{singleGoal.goal_description}</td>
-                        <td>{singleGoal.name}</td>
-                        <td>{startDate}</td>
-                        <td>{endtDate}</td>
-                        <td>{singleGoal.progress}%</td>
-                    </tr>);
+                    return (
+                        <TableRow key={'p_' + index} hoverable={true}>
+                            <TableRowColumn style={styles.TableRowColumn0}>{index + 1}</TableRowColumn>
+                            <TableRowColumn style={styles.TableRowColumn}><FlatButton fullWidth={true} style={{ textAlign: 'left' }} labelStyle={{ textTransform: 'capitalize' }} primary={true} label={singleGoal.goal_title} onClick={() => {
+                                this.setState({
+                                    mode: 'description',
+                                    descriptionId: singleGoal.goal_id,
+                                    currentGoalInfo: singleGoal
+                                })
+                            }}></FlatButton > </TableRowColumn>
+                            <TableRowColumn style={styles.TableRowColumn1}>{singleGoal.goal_description}</TableRowColumn>
+                            <TableRowColumn style={styles.TableRowColumn}>{singleGoal.name}</TableRowColumn>
+                            <TableRowColumn style={styles.TableRowColumn}>{startDate}</TableRowColumn>
+                            <TableRowColumn style={styles.TableRowColumn}>{endtDate}</TableRowColumn>
+                            <TableRowColumn style={styles.TableRowColumn}>{singleGoal.progress}%</TableRowColumn>
+                        </TableRow>
+                    )
                 })
             );
         }
@@ -79,46 +82,31 @@ class AllAssignedGoal extends Component {
                         <TableHeader style={styles.headerStyle} displaySelectAll={false}
                             adjustForCheckbox={false}>
                             <TableRow>
-                                <TableHeaderColumn style={styles.TableHeaderColumn}>ID</TableHeaderColumn>
-                                <TableHeaderColumn style={styles.TableHeaderColumn}>Name</TableHeaderColumn>
-                                <TableHeaderColumn style={styles.TableHeaderColumn}>Status</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn0}>#</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>Title</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn1}>Description</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>Assigned by</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>Start Date</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>End Date</TableHeaderColumn>
+                                <TableHeaderColumn style={styles.TableHeaderColumn}>Progress</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody displayRowCheckbox={false}>
-                            <TableRow hoverable={true}>
-                                <TableRowColumn>1</TableRowColumn>
-                                <TableRowColumn>John Smith</TableRowColumn>
-                                <TableRowColumn>Employed</TableRowColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableRowColumn>2</TableRowColumn>
-                                <TableRowColumn>Randal White</TableRowColumn>
-                                <TableRowColumn>Unemployed</TableRowColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableRowColumn>3</TableRowColumn>
-                                <TableRowColumn>Stephanie Sanders</TableRowColumn>
-                                <TableRowColumn>Employed</TableRowColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableRowColumn>4</TableRowColumn>
-                                <TableRowColumn>Steve Brown</TableRowColumn>
-                                <TableRowColumn>Employed</TableRowColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableRowColumn>5</TableRowColumn>
-                                <TableRowColumn>Christopher Nolan</TableRowColumn>
-                                <TableRowColumn>Unemployed</TableRowColumn>
-                            </TableRow>
+                            {this.renderTableBody()}
+
                         </TableBody>
                     </Table>
                 </Paper>
             );
         } else {
             return (
-                <GoalDescription currentGoalInfo={this.state.currentGoalInfo} />
+                <GoalDescription backButton={this.backButton} currentGoalInfo={this.state.currentGoalInfo} />
             );
         }
+    }
+
+    backButton(event) {
+        this.setState({ mode: 'table' });
     }
 }
 
@@ -127,12 +115,34 @@ const styles = {
         width: '98%',
         margin: '1%',
         padding: '1%',
-    }, headerStyle:
-        {
-            backgroundColor: blue300,
-        }, TableHeaderColumn: {
-            color: yellow50
-        }
+    }, headerStyle: {
+        backgroundColor: cyan700,
+    },
+    TableHeaderColumn: {
+        color: white
+    },
+    TableHeaderColumn1: {
+        color: white,
+        width: '30%'
+    },
+    TableHeaderColumn0: {
+        color: white,
+        width: '5%'
+    },
+    TableRowColumn: {
+        textOverflow: 'unset',
+        whiteSpace: 'normal',
+    },
+    TableRowColumn1: {
+        textOverflow: 'unset',
+        whiteSpace: 'normal',
+        width: '30%'
+    },
+    TableRowColumn0: {
+        textOverflow: 'unset',
+        whiteSpace: 'normal',
+        width: '5%'
+    }
 };
 
 export default AllAssignedGoal;
